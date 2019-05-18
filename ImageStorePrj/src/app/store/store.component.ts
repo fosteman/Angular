@@ -1,0 +1,37 @@
+import { Component } from '@angular/core';
+import { Product } from '../model/product.model';
+import { ProductRepository } from '../model/product.repository';
+@Component({
+  selector: "store", // html Element name <store/>
+  templateUrl: 'store.component.html'
+})
+export class StoreComponent {
+  public selectedCategory = null;
+  public productsPerPage = 4;
+  public selectedPage = 1;
+
+  constructor(private repository: ProductRepository) { } // Dependency injection feature
+  get products(): Product[] {
+    let pageIndex = (this.selectedPage - 1) * this.productsPerPage;
+    return this.repository.getProducts(this.selectedCategory) // Delegate filtering to datasource
+      .slice(pageIndex, pageIndex + this.productsPerPage);
+  }
+  get categories(): string[] {
+    return this.repository.getCategories();
+  }
+  changeCategory(newCategory?: string) {
+    this.selectedCategory = newCategory;
+  }
+  changePage(newPage: number) {
+    this.selectedPage = newPage;
+  }
+  changePageSize(newSize: number) {
+    this.productsPerPage = Number(newSize);
+    this.changePage(1);
+  }
+  get pageNumbers(): number[] {
+    return Array(Math.ceil(this.repository
+      .getProducts(this.selectedCategory).length / this.productsPerPage))
+      .fill(0).map((x, i) => i + 1);
+  } // Pagination feature v1: create new array, fill with '0', generate new array using .map with sequence.
+}
