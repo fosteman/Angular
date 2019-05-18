@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Product } from '../model/product.model';
 import { ProductRepository } from '../model/product.repository';
+import { Cart } from "../model/cart.model";
 @Component({
   selector: "store", // html Element name <store/>
   templateUrl: 'store.component.html'
@@ -10,10 +11,11 @@ export class StoreComponent {
   public productsPerPage = 4;
   public selectedPage = 1;
 
-  constructor(private repository: ProductRepository) { } // Dependency injection feature
+  constructor(private repository: ProductRepository,
+              private cart: Cart) { } // Dependency injection
   get products(): Product[] {
     let pageIndex = (this.selectedPage - 1) * this.productsPerPage;
-    return this.repository.getProducts(this.selectedCategory) // Delegate filtering to datasource
+    return this.repository.getProducts(this.selectedCategory) // Delegate filtering to data-source
       .slice(pageIndex, pageIndex + this.productsPerPage);
   }
   get categories(): string[] {
@@ -34,4 +36,7 @@ export class StoreComponent {
       .getProducts(this.selectedCategory).length / this.productsPerPage))
       .fill(0).map((x, i) => i + 1);
   } // Pagination feature v1: create new array, fill with '0', generate new array using .map with sequence.
+  addProductToCart(product: Product) {
+    this.cart.addLine(product);
+  }
 }
