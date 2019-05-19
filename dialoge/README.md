@@ -1,4 +1,4 @@
 # Dialoge
-Angular Material Dialog 
+Angular Material Dialog - practicum
 
-Create a dialog, pass data to the dialog component, get data back from a dialog component, use various configuration options for dialogs
+Duplex data to the dialog component, implementation of configuration object.
