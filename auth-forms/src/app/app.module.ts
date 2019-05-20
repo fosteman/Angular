@@ -15,7 +15,7 @@ const  routes: Routes  = [
     BrowserModule,
     RouterModule.forRoot(routes)
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
   providers: [],
   bootstrap: [AppComponent]
 })
