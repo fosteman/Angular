@@ -9,9 +9,9 @@ export class AuthService {
     return this.dataSrc.authenticate(username, password);
 }
 get authenticated(): boolean {
-    return this.dataSrc.authToken != null;
+    return this.dataSrc.auth_token != null;
 }
 clear() {
-    this.dataSrc.authToken = null;
+    this.dataSrc.auth_token = null;
 }
 }
