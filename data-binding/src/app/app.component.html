@@ -1,0 +1,12 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Practicing data binding...
+  </h1>
+  <ul>
+    <li #messageElementTag *ngFor="let item of messages" [attr.data-message-id]="item.id" >{{item.text}}<br>
+    <button (click)="logMessageId(messageElementTag)">Console Log </button>
+    </li>
+  </ul>
+</div>
+
